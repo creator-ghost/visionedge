@@ -112,4 +112,4 @@ MIT © qelrix
 
 ---
 
-**Репозиторий:** [github.com/qelrix/visionedge](https://github.com/qelrix/visionedge)
+**Репозиторий:** [github.com/qelrix/visionedge](https://github.com/creator-ghost/visionedge)
