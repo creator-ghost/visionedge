@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>VisionEdge Mobile</title>
+<meta name="theme-color" content="#000000">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="VisionEdge">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Space+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="mobile.css">
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash" class="splash">
+  <div class="splash-eye"><div class="iris"></div></div>
+  <div class="splash-title">VISIONEDGE</div>
+  <div class="splash-sub">Secure · Smooth · Hidden</div>
+</div>
+
+<!-- HOME / SPEED DIAL -->
+<section class="view view-home active" id="view-home">
+  <header class="m-head">
+    <div class="m-brand">VISIONEDGE</div>
+    <div class="m-vpn" id="vpn-stat">● direct</div>
+  </header>
+  <div class="m-searchbar">
+    <input id="home-search" type="text" inputmode="search" placeholder="Search or enter URL" autocomplete="off">
+  </div>
+  <div class="dial-head"><span>Speed Dial</span><button id="add-tile" class="mini-btn">+ Добавить</button></div>
+  <div class="dial" id="dial"></div>
+  <button id="install-btn" class="install-btn" hidden>Установить на главный экран</button>
+</section>
+
+<!-- SEARCH -->
+<section class="view view-search" id="view-search">
+  <header class="m-head"><div class="m-brand">Поиск</div></header>
+  <div class="m-searchbar big">
+    <input id="search-input" type="text" inputmode="search" placeholder="Search or enter URL" autocomplete="off">
+  </div>
+  <div class="engines" id="engines"></div>
+  <div class="recent" id="recent"></div>
+</section>
+
+<!-- BOOKMARKS -->
+<section class="view view-bm" id="view-bm">
+  <header class="m-head"><div class="m-brand">Закладки</div><button id="add-bm" class="mini-btn">+ Добавить</button></header>
+  <div class="bm-list" id="bm-list"></div>
+</section>
+
+<!-- AI -->
+<section class="view view-ai" id="view-ai">
+  <header class="m-head"><div class="m-brand">AI</div></header>
+  <div class="ai-chat" id="ai-chat">
+    <div class="ai-msg ai-bot">Привет! Я демо AI-панель VisionEdge Mobile. Введите ключ OpenRouter/OpenAI в Настройках, чтобы отвечать по-настоящему. Без ключа работаю как заглушка.</div>
+  </div>
+  <div class="ai-input">
+    <input id="ai-text" type="text" placeholder="Спросите что-нибудь…">
+    <button id="ai-send" class="send-btn">↑</button>
+  </div>
+</section>
+
+<!-- SETTINGS -->
+<section class="view view-set" id="view-set">
+  <header class="m-head"><div class="m-brand">Настройки</div></header>
+  <div class="set-list">
+    <label class="set-row"><span>Звуки интерфейса</span><input type="checkbox" id="set-sound" checked></label>
+    <label class="set-row"><span>Поисковик</span>
+      <select id="set-engine">
+        <option value="https://www.google.com/search?q=">Google</option>
+        <option value="https://duckduckgo.com/?q=">DuckDuckGo</option>
+        <option value="https://yandex.ru/search/?text=">Yandex</option>
+        <option value="https://www.bing.com/search?q=">Bing</option>
+      </select>
+    </label>
+    <label class="set-row col"><span>API-ключ AI (OpenAI / OpenRouter)</span>
+      <input type="password" id="set-aikey" placeholder="sk-... (хранится только на устройстве)"></label>
+    <label class="set-row col"><span>AI endpoint</span>
+      <input type="text" id="set-aiurl" placeholder="https://api.openai.com/v1/chat/completions"></label>
+    <label class="set-row col"><span>AI модель</span>
+      <input type="text" id="set-aimodel" placeholder="gpt-4o-mini"></label>
+    <button class="danger-btn" id="clear-data">Очистить данные приложения</button>
+    <div class="set-about">VisionEdge Mobile · PWA · by qelrix</div>
+  </div>
+</section>
+
+<!-- OFFLINE -->
+<div id="offline" class="offline" hidden>
+  <div class="off-eye">◉</div>
+  <h3>You are offline</h3>
+  <p>VisionEdge Mobile cached interface is still available.</p>
+  <button onclick="location.reload()" class="mini-btn">Повторить</button>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="m-nav">
+  <button data-view="home" class="active"><span>⌂</span>Home</button>
+  <button data-view="search"><span>⌕</span>Search</button>
+  <button data-view="bm"><span>★</span>Закладки</button>
+  <button data-view="ai"><span>✦</span>AI</button>
+  <button data-view="set"><span>⚙</span>Настр.</button>
+</nav>
+
+<script src="mobile.js"></script>
+</body>
+</html>
