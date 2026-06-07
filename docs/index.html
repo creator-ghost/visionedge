@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>VisionEdge — Private Browser by qelrix</title>
+<meta name="description" content="VisionEdge — приватный браузер. Secure. Smooth. Hidden. Скачать для Windows и macOS.">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="assets/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=531">
+</head>
+<body>
+
+<canvas id="viz-canvas" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+
+<audio id="ambient-audio" src="assets/sounds/ambient.mp3" loop preload="none"></audio>
+<button id="ambience-toggle" class="sound-toggle" title="Включить фоновую музыку">
+  <span class="snd-ico">♪</span><span class="snd-txt">Play ambience</span>
+</button>
+
+<nav class="nav glass">
+  <a class="brand" href="#hero" data-snd="click">
+    <span class="brand-eye"><span></span></span>
+    <span class="brand-name">VISIONEDGE</span>
+  </a>
+  <div class="nav-links" id="nav-links">
+    <a href="#features" data-snd="hover">Возможности</a>
+    <a href="#screenshots" data-snd="hover">Интерфейс</a>
+    <a href="#security" data-snd="hover">Защита</a>
+    <a href="#mobile" data-snd="hover">Mobile</a>
+    <a href="#download" class="nav-cta" data-snd="click">Скачать</a>
+  </div>
+  <button class="nav-burger" id="burger" aria-label="Меню">≡</button>
+</nav>
+
+<header id="hero" class="hero">
+  <div class="hero-eye-wrap" id="eye-wrap" aria-hidden="true">
+    <canvas id="eye-canvas" width="520" height="520"></canvas>
+  </div>
+  <div class="hero-inner">
+    <div class="badge glass reveal" data-snd="hover">Private browser · by qelrix</div>
+    <h1 class="hero-title">
+      <span class="line reveal" style="--d:.05s">VISION</span><span class="line accent reveal" style="--d:.12s">EDGE</span>
+    </h1>
+    <p class="hero-sub reveal" style="--d:.2s">Secure. Smooth. Hidden.</p>
+    <p class="hero-desc reveal" style="--d:.28s">
+      Скрытый браузер с защитой от записи экрана, авто-прокси, AI-панелью
+      и кинематографичным интерфейсом. Сделан, чтобы исчезать, когда нужно.
+    </p>
+    <div class="hero-actions reveal" style="--d:.36s">
+      <a class="btn btn-primary" id="dl-win" href="#download" data-snd="download"><span class="btn-ico"></span> Download for Windows</a>
+      <a class="btn btn-ghost" id="dl-mac" href="#download" data-snd="download">Download for macOS</a>
+      <a class="btn btn-ghost" id="open-mobile" href="mobile/index.html" data-snd="click">Open Mobile Version</a>
+      <a class="btn btn-line" id="gh-rel" href="https://github.com/creator-ghost/visionedge/releases" target="_blank" rel="noopener" data-snd="click">GitHub Releases</a>
+    </div>
+    <div class="hero-version reveal" style="--d:.44s">
+      <span class="pulse-dot"></span> <span id="version-text">Проверяю последнюю версию…</span>
+    </div>
+  </div>
+  <div class="scroll-hint" aria-hidden="true"><span></span></div>
+</header>
+
+<section id="features" class="section">
+  <div class="section-head reveal"><span class="eyebrow">Возможности</span><h2>Браузер, который думает о приватности первым</h2></div>
+  <div class="feature-grid">
+    <article class="feature glass tilt reveal" data-snd="hover"><div class="f-ico">◉</div><h3>Защита от скриншотов</h3><p>Окно исключается из записи экрана и снимков на Windows — то, что на экране, остаётся только у вас.</p></article>
+    <article class="feature glass tilt reveal" data-snd="hover" style="--d:.06s"><div class="f-ico">⇄</div><h3>Авто-прокси / VPN-режим</h3><p>Поиск самого быстрого рабочего прокси в потоках, автозамена «мёртвых», импорт списков из TXT/JSON.</p></article>
+    <article class="feature glass tilt reveal" data-snd="hover" style="--d:.12s"><div class="f-ico">✦</div><h3>AI-панель</h3><p>Спросите AI о текущей странице, получите конспект или перевод — онлайн или локально через Ollama.</p></article>
+    <article class="feature glass tilt reveal" data-snd="hover" style="--d:.18s"><div class="f-ico">⊞</div><h3>Speed Dial</h3><p>Красивый стартовый экран с плитками, поиском и статусом VPN. Полностью настраиваемый.</p></article>
+    <article class="feature glass tilt reveal" data-snd="hover" style="--d:.24s"><div class="f-ico">🌙</div><h3>Tab Sleeping</h3><p>Неактивные вкладки засыпают и освобождают память. Браузер остаётся лёгким даже с десятками вкладок.</p></article>
+    <article class="feature glass tilt reveal" data-snd="hover" style="--d:.3s"><div class="f-ico">♪</div><h3>Звуковой интерфейс</h3><p>Тактильные звуки кликов и печати, наборы звуков и поддержка собственных — на ваш вкус.</p></article>
+  </div>
+</section>
+
+<section id="screenshots" class="section">
+  <div class="section-head reveal"><span class="eyebrow">Интерфейс</span><h2>Реальные экраны VisionEdge</h2></div>
+  <div class="shots">
+    <figure class="shot glass tilt reveal" data-snd="hover" data-full="assets/screenshots/browser_overview.png">
+      <div class="shot-frame"><img src="assets/screenshots/browser_overview.png" alt="Браузер, мессенджеры и AI-панель" loading="lazy"></div>
+      <figcaption><b>Браузер · мессенджеры · AI</b><span>Главное окно, боковая панель мессенджеров и AI-ассистент.</span></figcaption>
+    </figure>
+    <figure class="shot glass tilt reveal" data-snd="hover" style="--d:.08s" data-full="assets/screenshots/speed_dial.png">
+      <div class="shot-frame"><img src="assets/screenshots/speed_dial.png" alt="Speed Dial" loading="lazy"></div>
+      <figcaption><b>Speed Dial</b><span>Стартовая страница с плитками, поиском и статусом VPN.</span></figcaption>
+    </figure>
+    <figure class="shot glass tilt reveal" data-snd="hover" style="--d:.16s" data-full="assets/screenshots/security_center.png">
+      <div class="shot-frame"><img src="assets/screenshots/security_center.png" alt="Security Center" loading="lazy"></div>
+      <figcaption><b>Security Center</b><span>Статус VPN/proxy, IP, обновления и кнопки безопасности.</span></figcaption>
+    </figure>
+    <figure class="shot glass tilt reveal" data-snd="hover" style="--d:.24s" data-full="assets/screenshots/music_visualizer_reference.png">
+      <div class="shot-frame"><img src="assets/screenshots/music_visualizer_reference.png" alt="Аудиовизуализатор" loading="lazy"></div>
+      <figcaption><b>Аудиовизуализатор</b><span>Неоновые кольца реагируют на музыку — он же на фоне сайта.</span></figcaption>
+    </figure>
+  </div>
+  <p class="shot-note reveal">Нажмите на скриншот, чтобы открыть в полном размере.</p>
+</section>
+
+<section id="security" class="section split">
+  <div class="split-text reveal">
+    <span class="eyebrow">Защита</span><h2>Приватность по умолчанию</h2>
+    <ul class="check-list">
+      <li>Исключение окна из записи экрана (Windows)</li>
+      <li>Инкогнито-профиль без следов на диске</li>
+      <li>Авто-прокси с проверкой в фоне</li>
+      <li>Security Center: IP, страна, провайдер, статус защиты</li>
+      <li>Блокировка рекламы и трекеров</li>
+    </ul>
+  </div>
+  <div class="split-visual reveal" data-snd="hover"><div class="shield glass"><div class="shield-core"></div></div></div>
+</section>
+
+<section id="performance" class="section">
+  <div class="section-head reveal"><span class="eyebrow">Скорость</span><h2>Плавность 60 FPS и лёгкая память</h2></div>
+  <div class="stat-grid">
+    <div class="stat glass reveal"><div class="stat-n" data-to="60">0</div><div class="stat-l">FPS прокрутки</div></div>
+    <div class="stat glass reveal" style="--d:.08s"><div class="stat-n" data-to="300">0</div><div class="stat-l">МБ дисковый кэш</div></div>
+    <div class="stat glass reveal" style="--d:.16s"><div class="stat-n" data-to="10">0</div><div class="stat-l">мин до сна вкладки</div></div>
+    <div class="stat glass reveal" style="--d:.24s"><div class="stat-n" data-to="5">0</div><div class="stat-l">потоков для прокси</div></div>
+  </div>
+</section>
+
+<section id="mobile" class="section split reverse">
+  <div class="split-text reveal">
+    <span class="eyebrow">Mobile PWA</span><h2>VisionEdge в кармане</h2>
+    <p>Откройте мобильную версию прямо в браузере телефона и добавьте на главный экран — работает офлайн, со Speed Dial, поиском и тёмной темой.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="mobile/index.html" data-snd="download">Открыть Mobile</a>
+      <a class="btn btn-line" href="#faq" data-snd="click">Как установить?</a>
+    </div>
+  </div>
+  <div class="split-visual reveal" data-snd="hover">
+    <div class="phone glass"><div class="phone-notch"></div>
+      <div class="phone-screen"><div class="ph-title">VISIONEDGE</div><div class="ph-search">Search or enter URL</div>
+        <div class="ph-grid"><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="ph-nav"><b></b><b></b><b></b><b></b></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="download" class="section">
+  <div class="download-card glass reveal">
+    <span class="eyebrow">Скачать</span>
+    <h2 id="dl-version-head">VisionEdge</h2>
+    <p class="dl-meta" id="dl-meta">Загрузка информации о релизе…</p>
+    <div class="dl-buttons">
+      <a class="btn btn-primary big" id="dl-win-2" href="https://github.com/creator-ghost/visionedge/releases" data-snd="download"><b>Windows</b><small>VisionEdge.zip</small></a>
+      <a class="btn btn-ghost big" id="dl-mac-2" href="https://github.com/creator-ghost/visionedge/releases" data-snd="download"><b>macOS</b><small id="mac-sub">VisionEdge-macOS.zip</small></a>
+    </div>
+    <a class="dl-fallback" id="dl-fallback" href="https://github.com/creator-ghost/visionedge/releases" target="_blank" rel="noopener" data-snd="click">Все релизы на GitHub →</a>
+  </div>
+</section>
+
+<section id="faq" class="section">
+  <div class="section-head reveal"><span class="eyebrow">FAQ</span><h2>Частые вопросы</h2></div>
+  <div class="faq-list">
+    <details class="glass reveal" data-snd="click"><summary>Это бесплатно?</summary><p>Да. VisionEdge распространяется как открытый проект, релизы — на GitHub.</p></details>
+    <details class="glass reveal" data-snd="click"><summary>Как установить PWA на iPhone?</summary><p>Откройте мобильную версию в Safari → «Поделиться» → «На экран Домой».</p></details>
+    <details class="glass reveal" data-snd="click"><summary>Как установить PWA на Android?</summary><p>Откройте в Chrome → меню (⋮) → «Установить приложение» / «Добавить на главный экран».</p></details>
+    <details class="glass reveal" data-snd="click"><summary>Работает ли защита от скриншотов на macOS?</summary><p>Полноценно — только на Windows. На macOS приложение запустится, но эта функция ограничена системой.</p></details>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-brand">VISIONEDGE</div>
+  <p>Private browser · by qelrix · Secure. Smooth. Hidden.</p>
+  <div class="footer-links">
+    <a href="https://github.com/creator-ghost/visionedge" target="_blank" rel="noopener" data-snd="hover">GitHub</a>
+    <a href="#download" data-snd="hover">Download</a>
+    <a href="mobile/index.html" data-snd="hover">Mobile</a>
+  </div>
+  <small>© <span id="year"></span> VisionEdge · build 5.3.1-fix2</small>
+</footer>
+
+<div id="lightbox" class="lightbox" hidden>
+  <button class="lb-close" aria-label="Закрыть">✕</button>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<script src="script.js?v=531"></script>
+</body>
+</html>
