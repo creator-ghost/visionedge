@@ -120,3 +120,27 @@ input,select{font-family:var(--font)}
 .m-nav button.active span{filter:drop-shadow(0 0 8px var(--glow))}
 
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ===== Speed Dial iPhone-style edit mode ===== */
+.dial-actions{display:flex;gap:8px;align-items:center}
+.done-btn{background:#2a6df0;border-color:#2a6df0;color:#fff;font-weight:700}
+.tile{position:relative}
+.tile .tile-del{
+  position:absolute;top:-6px;left:-6px;width:22px;height:22px;border-radius:50%;
+  background:#3a3a3e;color:#fff;border:1px solid rgba(255,255,255,.25);
+  font-size:18px;line-height:1;display:flex;align-items:center;justify-content:center;
+  z-index:3;padding:0;box-shadow:0 2px 6px rgba(0,0,0,.4)}
+.tile .tile-del:active{background:#ff4d4d}
+.dial.editing .tile{cursor:grab}
+/* лёгкое покачивание как на iOS */
+@keyframes jiggle{
+  0%{transform:rotate(-1.6deg)}
+  50%{transform:rotate(1.6deg)}
+  100%{transform:rotate(-1.6deg)}
+}
+.tile.jiggle{animation:jiggle .28s ease-in-out infinite}
+/* каждой второй плитке — противофаза, чтобы выглядело живее */
+.dial.editing .tile:nth-child(2n).jiggle{animation-delay:-.14s}
+@media (prefers-reduced-motion: reduce){
+  .tile.jiggle{animation:none}
+}

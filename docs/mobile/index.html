@@ -32,7 +32,12 @@
   <div class="m-searchbar">
     <input id="home-search" type="text" inputmode="search" placeholder="Search or enter URL" autocomplete="off">
   </div>
-  <div class="dial-head"><span>Speed Dial</span><button id="add-tile" class="mini-btn">+ Добавить</button></div>
+  <div class="dial-head"><span>Speed Dial</span>
+    <span class="dial-actions">
+      <button id="dial-done" class="mini-btn done-btn" hidden>Done</button>
+      <button id="add-tile" class="mini-btn">+ Добавить</button>
+    </span>
+  </div>
   <div class="dial" id="dial"></div>
   <button id="install-btn" class="install-btn" hidden>Установить на главный экран</button>
 </section>

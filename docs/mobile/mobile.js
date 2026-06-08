@@ -60,13 +60,77 @@
   function pushRecent(u){recent=[u,...recent.filter(x=>x!==u)].slice(0,8);save('recent',recent);renderRecent();}
 
   /* ---------- RENDER ---------- */
-  function renderDial(){const d=$('#dial');d.innerHTML='';
-    tiles.forEach((tile,idx)=>{const el=document.createElement('div');el.className='tile';
-      el.innerHTML=`<div class="ti">${tile.i||'🌐'}</div><div class="tt">${tile.t}</div>`;
-      el.addEventListener('click',()=>openURL(tile.u));
-      el.addEventListener('contextmenu',ev=>{ev.preventDefault();
-        if(confirm('Удалить плитку "'+tile.t+'"?')){tiles.splice(idx,1);save('tiles',tiles);renderDial();}});
-      d.appendChild(el);});}
+  /* ---------- SPEED DIAL (iPhone-style edit mode) ---------- */
+  let editMode = false;
+  let lpTimer = null;          // long-press timer
+  let dragIdx = null;          // index being dragged
+
+  function setEditMode(on){
+    editMode = on;
+    const dial = $('#dial');
+    if (dial) dial.classList.toggle('editing', on);
+    const done = $('#dial-done');
+    if (done) done.hidden = !on;
+    renderDial();
+    if (on && navigator.vibrate) { try { navigator.vibrate(15); } catch(e){} }
+  }
+
+  function renderDial(){
+    const d=$('#dial'); if(!d) return; d.innerHTML='';
+    tiles.forEach((tile,idx)=>{
+      const el=document.createElement('div');
+      el.className='tile'+(editMode?' jiggle':'');
+      el.dataset.idx=idx;
+      el.innerHTML =
+        (editMode?'<button class="tile-del" aria-label="Удалить">−</button>':'')+
+        `<div class="ti">${tile.i||'🌐'}</div><div class="tt">${tile.t}</div>`;
+
+      // обычный тап — открыть (только вне режима редактирования)
+      el.addEventListener('click',(ev)=>{
+        if(editMode){ ev.preventDefault(); return; }
+        openURL(tile.u);
+      });
+
+      // long-press → включить edit mode
+      const startLP=()=>{ if(editMode) return;
+        lpTimer=setTimeout(()=>setEditMode(true),500); };
+      const cancelLP=()=>{ if(lpTimer){clearTimeout(lpTimer);lpTimer=null;} };
+      el.addEventListener('touchstart',startLP,{passive:true});
+      el.addEventListener('touchend',cancelLP);
+      el.addEventListener('touchmove',cancelLP,{passive:true});
+      el.addEventListener('mousedown',startLP);
+      el.addEventListener('mouseup',cancelLP);
+      el.addEventListener('mouseleave',cancelLP);
+
+      // кнопка удаления
+      if(editMode){
+        const del=el.querySelector('.tile-del');
+        if(del) del.addEventListener('click',(ev)=>{
+          ev.stopPropagation();
+          if(confirm('Удалить плитку «'+tile.t+'»?')){
+            tiles.splice(idx,1); save('tiles',tiles); renderDial();
+          }
+        });
+        // drag-reorder (touch + mouse через Pointer Events)
+        el.setAttribute('draggable','false');
+        el.addEventListener('pointerdown',()=>{ dragIdx=idx; });
+        el.addEventListener('pointerenter',()=>{
+          if(dragIdx!==null && dragIdx!==idx){
+            const moved=tiles.splice(dragIdx,1)[0];
+            tiles.splice(idx,0,moved);
+            dragIdx=idx; save('tiles',tiles); renderDial();
+          }
+        });
+      }
+      d.appendChild(el);
+    });
+  }
+  // отпускание пальца/мыши завершает перетаскивание
+  document.addEventListener('pointerup',()=>{ dragIdx=null; });
+
+  // кнопка Done
+  const doneBtn=$('#dial-done');
+  if(doneBtn) doneBtn.addEventListener('click',()=>setEditMode(false));
   function renderRecent(){const r=$('#recent');if(!r)return;r.innerHTML='';
     recent.forEach(u=>{const el=document.createElement('div');el.className='r';el.textContent=u;
       el.addEventListener('click',()=>openURL(u));r.appendChild(el);});}
