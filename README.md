@@ -1,3 +1,4 @@
+<img width="1672" height="941" alt="8cb20671-5c44-4282-81a4-4a85b1b2841a" src="https://github.com/user-attachments/assets/1a274582-7dcb-40bb-8473-99b77b84b713" />
 # VisionEdge v5.0
 
 **Скрытый браузер + AI-ассистент + прокси-менеджер + расширения**
